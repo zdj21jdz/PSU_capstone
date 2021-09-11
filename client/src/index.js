@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
-// import $ from 'jquery';
-// import Popper from 'popper.js';
-
+import ReactDOM from 'react-dom';
 import App from './App';
+import {BrowserRouter} from "react-router-dom";
+import './bootstrap.min.css';
 
-ReactDom.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
