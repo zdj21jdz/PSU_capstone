@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-const Login = props => {
+// Todo - Re-do this as a standalone page that pulls from dash?
+
+const LoginPage = props => {
 
   const initialUserState = {
     name: "",
@@ -14,6 +16,7 @@ const Login = props => {
     setUser({ ...user, [name]: value });
   };
 
+    // Todo - add in login function that check with mongo // make sure to clean the inputs later, just get it working for now
   const login = () => {
     props.login(user)
     props.history.push('/');
@@ -36,15 +39,15 @@ const Login = props => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="id">ID</label>
+          <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             className="form-control"
-            id="id"
+            id="password"
             required
-            value={user.id}
+            value={user.password}
             onChange={handleInputChange}
-            name="id"
+            name="password"
           />
         </div>
 
@@ -56,4 +59,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default LoginPage;

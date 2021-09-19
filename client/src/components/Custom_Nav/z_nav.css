@@ -1,0 +1,21 @@
+a.navbar-brand.lt {
+    color: white;
+}
+
+div#sub-links {
+    flex-direction: row;
+}
+
+.navbar-nav a.nav-link {
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+button#logout-button {
+    color: white;
+}
+
+a#logout-button.nav-link {
+    color: white;
+}
