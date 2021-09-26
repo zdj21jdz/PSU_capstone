@@ -1,10 +1,6 @@
-// import { Switch } from "@mui/material";
-// import { Router } from "express";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import Dashboard from "./components/dashboard";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// var mongo = require('mongodb').MongoClient;
+
 
 // Routes
 import TestLogin from "./Pages/TestLogin";
