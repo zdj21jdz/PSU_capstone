@@ -25,8 +25,6 @@ function TestLogin() {
         const username = user.name;
         const password = user.pass;
 
-        // console.log(username, password);
-
         // TODO - Will need to update when live
         const api = 'http://localhost:5000/logins'
         fetch(api, {
@@ -43,7 +41,12 @@ function TestLogin() {
             .then(res => res.text())
             .then(data => {
                 if(data==='true') {
-                    history.push("/home");
+                    history.push({
+                        pathname: '/home',
+                        state: {
+                            checkUser: 'user_authorized'
+                        }
+                    });
                 } else {
                     setErrMsg(data);
                 }
