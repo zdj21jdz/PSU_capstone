@@ -10,6 +10,6 @@ export default function Profile() {
     if (location.state === undefined) {
         return <Redirect to="/" />;
     } else {
-        return <Dashboard />;
+        return <Dashboard username={(location.state).userName} />;
     }
 }

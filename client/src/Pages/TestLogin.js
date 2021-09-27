@@ -40,16 +40,36 @@ function TestLogin() {
         })
             .then(res => res.text())
             .then(data => {
-                if(data==='true') {
+                console.log(data);
+                const userData = JSON.stringify(data);
+                console.log(userData);
+
+                if(data==='Invalid Credentials!') {
+                    setErrMsg(data);
+                }
+                else {
                     history.push({
                         pathname: '/home',
                         state: {
-                            checkUser: 'user_authorized'
+                            userName: username,
+                            userData: userData
                         }
                     });
-                } else {
-                    setErrMsg(data);
                 }
+                // For testing
+                // if(data==='true') {
+                //     history.push({
+                //         pathname: '/home',
+                //         state: {
+                //             userName: username,
+                //             userData: data
+                //         }
+                //     });
+                // } else {
+                //     console.log('somethigns wrong');
+
+                //     setErrMsg(data);
+                // }
             })
     };
 

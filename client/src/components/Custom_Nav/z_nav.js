@@ -8,6 +8,12 @@ import Button from '@mui/material/Button';
 import { IconButton } from '@mui/material';
 import { Link } from "react-router-dom";
 
+// history.push({
+//     pathname: '/home',
+//     state: {
+//         userName: username,
+//     }
+
 // Main Navbar used throughout the website
 const ZNav = props => {
 
@@ -25,18 +31,22 @@ const ZNav = props => {
                 <MenuIcon />
             </IconButton>
 
-            <a href="/home" className="navbar-brand lt">PSUTrade</a>
+            {/* TODO - on click, bring back home */}
+            <Button color="inherit" id="Navbar-Brand">
+                PSUTrade
+            </Button>
 
             <div className="navbar-nav me-auto" id="sub-links">
                 <li className="nav-item">
-                    <Link to={"/home"} className="nav-link">
-                    Home
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link to={"/insights"} className="nav-link">
+                    {/* <Link to={"/insights"} className="nav-link">
                     Insights
-                    </Link>
+                    </Link> */}
+                    <Button className="link-buttons">
+                        Insights
+                    </Button>
+                    <Button className="link-buttons">
+                        Hold
+                    </Button>
                 </li>
             </div>
 
@@ -44,7 +54,7 @@ const ZNav = props => {
 
             <Button color="inherit">
                     <Link to={"/"} className="nav-link" id="logout-button">
-                        Logout
+                        Logout - {props.username}
                     </Link>
             </Button>
 

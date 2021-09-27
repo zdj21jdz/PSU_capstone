@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 
 // Pages
 import App from './App';
-// import TestLogin from './Pages/TestLogin';
-// import Profile from './Pages/Profile';
 
 // CSS
 import './bootstrap.min.css';

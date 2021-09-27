@@ -11,15 +11,19 @@ export const validateUser = async (req, res) => {
                                         .findOne({username: uName,
                                                   pass: uPass});
 
+        
+
         console.log(retrievedData)
 
         if (!retrievedData) {
             res.status(200).send('Invalid Credentials!')
         } else {
-            res.status(200).send(true);
+            console.log('Good!');
+            res.status(200).send(retrievedData);
         }
         
     } catch (error) {
+        console.log('we_errored_here');
         res.status(404).json({ message: error.message });
         
     }
