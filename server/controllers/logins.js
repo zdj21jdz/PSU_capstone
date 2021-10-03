@@ -3,16 +3,13 @@ import dev_databases from "../models/loginUser.js";
 
 export const validateUser = async (req, res) => {
     try {
-        const uName = req.body.submittedUsername;
-        const uPass = req.body.submittedPass;
+        const uName = req.body.postData.submittedUsername;
+        const uPass = req.body.postData.submittedPass;
 
         /// Use with correct user/pass
         const retrievedData = await dev_databases
                                         .findOne({username: uName,
                                                   pass: uPass});
-
-        
-
         console.log(retrievedData)
 
         if (!retrievedData) {

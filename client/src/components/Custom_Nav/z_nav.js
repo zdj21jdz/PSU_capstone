@@ -44,9 +44,6 @@ const ZNav = props => {
                     <Button className="link-buttons">
                         Insights
                     </Button>
-                    <Button className="link-buttons">
-                        Hold
-                    </Button>
                 </li>
             </div>
 

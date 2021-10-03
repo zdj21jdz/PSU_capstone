@@ -17,6 +17,7 @@ export const retrieveUserData = async (req, res) => {
         } 
         else {
             console.log('User Found');
+            console.log(retrievedData);
             res.status(200).send(retrievedData);
         }
         

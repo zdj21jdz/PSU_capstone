@@ -1,130 +1,133 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
+// import { Redirect } from "react-router-dom";
 import Button from '@mui/material/Button';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import axios from 'axios';
 
 import './TestLogin.css';
+import { Redirect } from "react-router";
 
-function TestLogin() {
-    let history = useHistory();
+class TestLogin extends React.Component {
 
-    const initialUserState = {
-      name: "",
-      pass: "",
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            hash:'jfdisaojfewnfkdsajienweiak',
+            redirect: null
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        // console.log(this.props.location);
+        // console.log(this.state.username);
+    }
+
+    handleInputChange(event) {
+        event.preventDefault();
+        
+        const target = event.target;
     
-    const [user, setUser] = useState(initialUserState);
-    const [errMsg, setErrMsg] = useState(null)
-    
-    const handleInputChange = event => {
-      const { name, value } = event.target;
-      setUser({ ...user, [name]: value });
-    };
+        this.setState({
+            [target.name]: target.value
+        });
+      }
 
-    const handleSubmit = () => {
-        const username = user.name;
-        const password = user.pass;
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log('I was clicked!')
 
-        // TODO - Will need to update when live
-        const api = 'http://localhost:5000/logins'
-        fetch(api, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                submittedUsername: username,
-                submittedPass: password,
-            })
-        })
-            .then(res => res.text())
-            .then(data => {
-                console.log(data);
-                const userData = JSON.stringify(data);
-                console.log(userData);
+        const postData = {
+            submittedUsername: this.state.username,
+            submittedPass: this.state.password
+        }
 
-                if(data==='Invalid Credentials!') {
-                    setErrMsg(data);
+        axios.post('http://localhost:5000/logins', 
+                    {postData}, {
+                        headers: {
+                          'Content-Type': 'application/json'
+                        }
+                      })
+            .then(res => {
+                console.log(res.data);
+                if(res.data==='Invalid Credentials!') {
+                    alert(res.data);
                 }
                 else {
-                    history.push({
-                        pathname: '/home',
+                    console.log('hit here')
+                    // this.setState({ redirect: '/home'});
+                    this.props.history.push({
+                        pathname:'/home',
                         state: {
-                            userName: username,
-                            userData: userData
+                            username:this.state.username
                         }
-                    });
+                    })
                 }
-                // For testing
-                // if(data==='true') {
-                //     history.push({
-                //         pathname: '/home',
-                //         state: {
-                //             userName: username,
-                //             userData: data
-                //         }
-                //     });
-                // } else {
-                //     console.log('somethigns wrong');
+            });
+        }
 
-                //     setErrMsg(data);
-                // }
-            })
-    };
-
-    const errBody = (errMsg !== null ? <code style={{'marginTop': '20px', 'padding': '0 20px'}}>{errMsg}</code> : null)
-
-    return (
-        <div className="submit-form">
-
-            <div id="login-icon">
-                <LockOutlinedIcon />
-            </div>
-            
-            <div id="banner">
-                Sign in
-            </div>
-
-            <label htmlFor="user">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              required
-              value={user.name}
-              onChange={handleInputChange}
-              name="name"
-            />
-        
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="pass"
-              required
-              value={user.password}
-              onChange={handleInputChange}
-              name="pass"
-            />
-
-            <Button variant="contained" id="login-btn"
-                onClick={handleSubmit}>
-                    Login
-            </Button>
-            
-            <div id="login-help">
-                <div id="Sign-up">
-                    <a href=".">Don't have an Account? Sign Up</a>
+    render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
+        return (
+            <div className="submit-form">
+    
+                <div id="login-icon">
+                    <LockOutlinedIcon />
                 </div>
-            </div>
+                
+                <div id="banner">
+                    Sign in
+                </div>
 
-            <div id="error-div">
-                {errBody}
+                <div id="inputs">
+                    <form>
+                        <label htmlFor="user">Username</label>
+                        <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        required
+                        value={this.username}
+                        onChange={this.handleInputChange}
+                        name="username"
+                        />
+                    
+                        <label htmlFor="password">Password</label>
+                        <input
+                        type="password"
+                        className="form-control"
+                        id="pass"
+                        required
+                        value={this.password}
+                        onChange={this.handleInputChange}
+                        name="password"
+                        />
+                        <Button variant="contained" 
+                                id="login-btn" 
+                                type="submit" 
+                                onClick={this.handleSubmit}>
+                            Login
+                        </Button>
+                    </form>
+                </div>
+                
+                <div id="login-help">
+                    <div id="Sign-up">
+                        <a href=".">Don't have an Account? Sign Up</a>
+                    </div>
+                </div>
+    
+                {/* <div id="error-div">
+                    {errBody}
+                </div> */}
+    
             </div>
-
-        </div>
-    );
+        );
+    }
+    
 }
 
 export default TestLogin;
