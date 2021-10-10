@@ -56,7 +56,8 @@ class TestLogin extends React.Component {
                     this.props.history.push({
                         pathname:'/home',
                         state: {
-                            username:this.state.username
+                            username:this.state.username,
+                            loggedIn: true
                         }
                     })
                 }

@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import React from "react";
 import ZNav from './Custom_Nav/z_nav';
+import PageNotFound from "../Pages/NotFound";
 
 import './dashboard.css';
 
@@ -243,37 +244,42 @@ class Dashboard extends React.Component {
             count: 0,
             tUname: 'test'
         };
-        console.log(this.props.location.state.username);
+        // console.log(this.props.location.state.username);
     }
 
     render() {
-        return (
-            <>
-    
-            <div>
-                <ZNav username={this.props.location.state.username}/>
-            </div>
-    
-            <div id='greeting'>
-                <h1>Good Morning, {this.props.location.state.username}!</h1>
-            </div>
-    
-            <div id='user-content'>
-                <div className='content-block' id='user-portfolio'>  
-                    <div className='content'>
-                        <h1>{this.props.location.state.username}'s Portfolio</h1>
-                        {mocked_data(this.props)}
+        try {
+            return (
+                <>
+        
+                <div>
+                    <ZNav username={this.props.location.state.username}/>
+                </div>
+        
+                <div id='greeting'>
+                    <h1>Good Morning, {this.props.location.state.username}!</h1>
+                </div>
+        
+                <div id='user-content'>
+                    <div className='content-block' id='user-portfolio'>  
+                        <div className='content'>
+                            <h1>{this.props.location.state.username}'s Portfolio</h1>
+                            {mocked_data(this.props)}
+                        </div>
+                    </div>
+                    <div className='content-block' id='user-insights'>
+                        <div className='content'>
+                        {mocked_insights(this.props)}
+                        </div>
                     </div>
                 </div>
-                <div className='content-block' id='user-insights'>
-                    <div className='content'>
-                    {mocked_insights(this.props)}
-                    </div>
-                </div>
-            </div>
-            
-            </>
-        );
+                
+                </>
+            );
+        } catch (error) {
+            return <PageNotFound />
+        }
+        
     }
 };
 
