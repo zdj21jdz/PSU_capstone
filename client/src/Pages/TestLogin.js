@@ -20,8 +20,6 @@ class TestLogin extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        // console.log(this.props.location);
-        // console.log(this.state.username);
     }
 
     handleInputChange(event) {
@@ -36,14 +34,13 @@ class TestLogin extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('I was clicked!')
 
         const postData = {
             submittedUsername: this.state.username,
             submittedPass: this.state.password
         }
 
-        axios.post('http://localhost:5000/logins', 
+        axios.post( '/logins', 
                     {postData}, {
                         headers: {
                           'Content-Type': 'application/json'
@@ -56,7 +53,6 @@ class TestLogin extends React.Component {
                 }
                 else {
                     console.log('hit here')
-                    // this.setState({ redirect: '/home'});
                     this.props.history.push({
                         pathname:'/home',
                         state: {
@@ -119,10 +115,6 @@ class TestLogin extends React.Component {
                         <a href=".">Don't have an Account? Sign Up</a>
                     </div>
                 </div>
-    
-                {/* <div id="error-div">
-                    {errBody}
-                </div> */}
     
             </div>
         );
