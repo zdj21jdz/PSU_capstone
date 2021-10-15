@@ -1,4 +1,4 @@
-/* TC_S8 - Test Case - System test #8
+/* TC_S1 - Test Case - System test #1
     
 Description:
         Website will show an error to non-existent pages 
@@ -50,7 +50,7 @@ function randomPathGen(length) {
    return result;
 }
 
-describe('TC_S8 - Test Non-Auth user', ()=> {
+describe('TC_S1 - Test Non-Auth user', ()=> {
     beforeAll(() => {
         const component = shallow(<App/>);
         pathMap = component.find(App).reduce((pathMap, route) => {
@@ -61,11 +61,11 @@ describe('TC_S8 - Test Non-Auth user', ()=> {
           console.log(pathMap)
       })
 
-      it('TC_S8.1 - TestLogin component should show for root', () => {
+      it('TC_S1.1 - TestLogin component should show for root', () => {
         expect(pathMap['/']).toBe(TestLogin);
       })
 
-      it('TC_S8.2 - Dashboard should be shown for home', () => {
+      it('TC_S1.2 - Dashboard should be shown for home', () => {
         expect(pathMap['/home']).toBe(Dashboard);
       })
 
@@ -73,7 +73,7 @@ describe('TC_S8 - Test Non-Auth user', ()=> {
       for(var i = 0; i < 10; i++) {
           let randomPath = randomPathGen(6);
           
-          it('TC_S8.3 - PageNotFound shown for random pages', () => {
+          it('TC_S1.3 - PageNotFound shown for random pages', () => {
             expect(pathMap[randomPath]).toBe(PageNotFound);
           })
       }

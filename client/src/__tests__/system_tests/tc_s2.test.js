@@ -1,4 +1,4 @@
-/* TC_S9 - Test Case - System test #9
+/* TC_S2 - Test Case - System test #2
     
 Description:
         Website will not show any pages to a non-authenticated user 
@@ -32,7 +32,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
 
-describe('TC_S9 - Test Non-Auth user', ()=> {
+describe('TC_S2 - Test Non-Auth user', ()=> {
     // Set a authorized wrapper and un-auth'd wrapper
     const authed_wrapper = shallow(<Dashboard />);
     const unauth_wrapper = shallow(<Dashboard />);
