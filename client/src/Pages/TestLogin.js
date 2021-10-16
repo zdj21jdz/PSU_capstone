@@ -47,7 +47,7 @@ class TestLogin extends React.Component {
                         }
                       })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if(res.data==='Invalid Credentials!') {
                     alert(res.data);
                 }
@@ -61,6 +61,10 @@ class TestLogin extends React.Component {
                         }
                     })
                 }
+            })
+            .catch(function (error) {
+                // Bouncer for 429 - too many requests
+                alert("Too many bad attempts! Please wait a few minutes");
             });
         }
 
