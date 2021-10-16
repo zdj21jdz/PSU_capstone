@@ -3,3 +3,7 @@ server/.git
 
 # Ignore builds imported from client
 server/build/
+
+# Ignore all node modules
+*node_modules/
+server/node_modules/

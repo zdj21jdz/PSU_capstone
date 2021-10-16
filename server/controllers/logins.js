@@ -6,6 +6,11 @@ export const validateUser = async (req, res) => {
         const uName = req.body.postData.submittedUsername;
         const uPass = req.body.postData.submittedPass;
 
+
+        // For testing
+        console.log(uName)
+        console.log(uPass)
+
         /// Use with correct user/pass
         const retrievedData = await dev_databases
                                         .findOne({username: uName,
