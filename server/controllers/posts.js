@@ -5,7 +5,7 @@ export const retrieveUserData = async (req, res) => {
     try {
         const uName = req.body.uName;
 
-        console.log(uName)
+        console.log(uName);
 
         /// Use with correct user/pass
         const retrievedData = await userInfos
@@ -16,8 +16,7 @@ export const retrieveUserData = async (req, res) => {
             res.status(409).json({ message: error.message });
         } 
         else {
-            console.log('User Found');
-            console.log(retrievedData);
+            console.log('User Found - sending data');
             res.status(200).send(retrievedData);
         }
         

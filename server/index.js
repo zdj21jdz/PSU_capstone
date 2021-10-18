@@ -39,7 +39,7 @@ app.get('/', bouncer.block, function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   }
 });
-app.use('/posts', bouncer.block, postRoutes);
+app.use('/posts', postRoutes);
 app.use('/logins', bouncer.block, postLogins);
 app.use('/tests', bouncer.block, postTests);
 

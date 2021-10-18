@@ -47,12 +47,10 @@ class TestLogin extends React.Component {
                         }
                       })
             .then(res => {
-                // console.log(res.data);
                 if(res.data==='Invalid Credentials!') {
                     alert(res.data);
                 }
                 else {
-                    console.log('hit here')
                     this.props.history.push({
                         pathname:'/home',
                         state: {
