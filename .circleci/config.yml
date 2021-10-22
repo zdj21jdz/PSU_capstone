@@ -1,0 +1,49 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2 # For easier deployment to heroku
+
+jobs:
+  ## Run all my tests to make sure everything works
+  test: ## TODO - persist artifacts for each run
+    docker:
+      - image: circleci/node:14.16.1
+    steps:
+      - checkout
+      - attach_workspace:
+            at: ~/client
+      - run: echo "Run test suite"
+      - run: npm run test
+
+  ## Re-build the image with the latest changes
+  build:
+    docker:
+      - image: circleci/node:14.16.1
+    steps:
+      - checkout
+      - attach_workspace:
+            at: ~/client
+      - run: echo "create compressed build"
+      - run: npm run build
+
+workflows:
+  build_test:
+    jobs:
+      - build
+
+      - test:
+          requires:
+            - build
+
+      - heroku/deploy-via-git:
+          pre-steps:
+            - attach_workspace:
+                at: ~/server
+          filters:
+            branches:
+              only: master
+          force: true
+          maintenance-mode: true
+          requires:
+            - test
+
