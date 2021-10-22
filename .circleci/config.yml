@@ -1,0 +1,27 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2 # For quick deployment to heroku
+
+jobs:
+  ## Re-build the image with the latest changes
+  create:
+    docker:
+      - image: circleci/node:14.16.1
+    steps:
+      - checkout
+      - run: echo "create compressed build"
+      - run: cd client && npm install && npm run build && npm run test && cd ../server && npm install
+
+workflows:
+  build_test:
+    jobs:
+      - create
+      - heroku/deploy-via-git:
+          # filters:
+          #   branches:
+          #     only: master
+          force: true
+          maintenance-mode: true
+          requires:
+            - create
