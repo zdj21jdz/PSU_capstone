@@ -10,9 +10,8 @@ jobs:
       - image: circleci/node:14.16.1
     steps:
       - checkout
-      - run: cd client
       - run: echo "create compressed build"
-      - run: npm run build
+      - run: cd client && npm run build
 
   ## Run all my tests to make sure everything works
   test: ## TODO - persist artifacts for each run
@@ -20,9 +19,8 @@ jobs:
       - image: circleci/node:14.16.1
     steps:
       - checkout
-      - run: cd client
       - run: echo "Run test suite"
-      - run: npm run test
+      - run: cd client && npm run test
 
 workflows:
   build_test:
