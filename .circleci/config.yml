@@ -5,40 +5,18 @@ orbs:
 
 jobs:
   ## Re-build the image with the latest changes
-  build:
+  create:
     docker:
       - image: circleci/node:14.16.1
     steps:
       - checkout
       - run: echo "create compressed build"
-      - run: cd client && npm install && npm run build
-
-  ## Run all my tests to make sure everything works
-  test: ## TODO - persist artifacts for each run
-    docker:
-      - image: circleci/node:14.16.1
-    steps:
-      - run: echo "Run test suite"
-      - run: cd client && npm run test
-
-  ## Make sure backend has all modules installed
-  setup-backend:
-    docker:
-      - image: circleci/node:14.16.1
-    steps:
-      - run: cd server && npm install
+      - run: cd client && npm install && npm run build && npm run test && cd server && npm install
 
 workflows:
   build_test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-
-      - setup-backend:
-          requires:
-            - test
+      - create
       - heroku/deploy-via-git:
           pre-steps:
             - run: cd ~/server
@@ -48,4 +26,4 @@ workflows:
           force: true
           maintenance-mode: true
           requires:
-            - setup-backend
+            - create
