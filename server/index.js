@@ -30,14 +30,8 @@ bouncer.blocked = function (req, res, next, remaining)
 
 // Middleware
 app.get('/', bouncer.block, function (req, res) {
-  if (LoginFailed) {
-    // Login Failed
-    res.send(body)
-  }
-  else {
-    bouncer.reset(req);
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  }
+  bouncer.reset(req);
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.use('/posts', postRoutes);
 app.use('/logins', bouncer.block, postLogins);

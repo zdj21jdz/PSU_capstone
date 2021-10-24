@@ -16,9 +16,6 @@ class UserInsights extends React.Component {
     componentDidMount() {
 
         let userName = this.props.passusername;
-        
-        console.log('Loading user data')
-        console.log(this.props.passusername)
     
         axios.post('/posts',
                 {uName: userName}, {
@@ -26,10 +23,7 @@ class UserInsights extends React.Component {
                     'Content-Type': 'application/json'
                     }
                 })
-        .then(res => {
-            console.log('load_user_data');
-            console.log(res.data);
-    
+        .then(res => {    
             this.setState({
                 isLoaded: true,
                 jdata: res.data
