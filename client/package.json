@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy":"http://localhost:5000",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@babel/preset-flow": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
@@ -41,8 +41,8 @@
     "moduleNameMapper": {
       "\\.(css|jpg|png)$": "identity-obj-proxy"
     },
-    "testPathIgnorePatterns" : [
-      "PenTestFuns.js" 
+    "testPathIgnorePatterns": [
+      "PenTestFuns.js"
     ],
     "slowTestThreshold": 8
   },

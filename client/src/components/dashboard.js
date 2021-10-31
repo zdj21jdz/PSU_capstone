@@ -2,68 +2,10 @@
 import React from "react";
 import ZNav from './Custom_Nav/z_nav';
 import PageNotFound from "../Pages/NotFound";
+import SessionExpired from "../Pages/SessionExpired";
 
 import './dashboard.css';
 import UserInsights from './UserInsights';
-
-
-function mocked_data(props) {
-    if (props.location.state.username ==='test') {
-        return (
-            <div>
-                <ul id='stock_listings'>
-                    <h5>APPL: Current value held: $800.00</h5>
-                    <li>
-                        Current Price: $400.00
-                    </li>
-                    <li>
-                        Total Shares: 2
-                    </li>
-                </ul>
-                <ul id='stock_listings'>
-                    <h5>MSFT: Current value held: $4000.00</h5>
-                    <li>
-                        Current Price: $400.00
-                    </li>
-                    <li>
-                        Total Shares: 10
-                    </li>
-                </ul>
-            </div>
-        )
-    }
-    if (props.location.state.username ==='test_xyz') {
-        return (
-            <div>
-                <ul id='stock_listings'>
-                    <h5>BOIL: Current value held: $800.00</h5>
-                    <li>
-                        Current Price: $8.00
-                    </li>
-                    <li>
-                        Total Shares: 100
-                    </li>
-                </ul>
-                <ul id='stock_listings'>
-                    <h5>KOLD: Current value held: $740.00</h5>
-                    <li>
-                        Current Price: $74.00
-                    </li>
-                    <li>
-                        Total Shares: 10
-                    </li>
-                </ul>
-            </div>
-        )
-    }
-    else {
-        return (
-            <div>
-                Error Loading Data!
-            </div>
-        )
-    }
-}
 
 function mocked_insights(props) {
     if (props.location.state.username ==='test') {
@@ -146,55 +88,48 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
-            tUname: 'test',
             isLoaded: false,
             items: []
         };
-
-        console.log(this.state.tUname)
     }
 
     render() {
-        // For Redirecting if user is unauthenticated
+        const currTime = Math.floor(Date.now() / 1000);
+
         try {
-            return (
-                <>
-        
-                <div>
-                    <ZNav username={this.props.location.state.username}/>
-                </div>
-        
-                <div id='greeting'>
-                    <h1>Good Morning, {this.props.location.state.username}!</h1>
-                </div>
-        
-                <div id='user-content'>
+            // Check if the token is valid
+            if (currTime > this.props.location.state.tokenExp) {
+                return <SessionExpired />
+            } else {
+                return (
+                    <>
+                    <div>
+                        <ZNav username={this.props.location.state.username}/>
+                    </div>
+            
+                    <div id='greeting'>
+                        <h1>Good Morning, {this.props.location.state.username}!</h1>
+                    </div>
+            
+                    <div id='user-content'>
                     <div className='content-block' id='user-portfolio'>  
                         <div className='content'>
                             <h1>{this.props.location.state.username}'s Portfolio</h1>
-                            {mocked_data(this.props)}
+                                <UserInsights passusername={this.props.location.state.username} />
+                            </div>
+                        </div>
+                        <div className='content-block' id='user-insights'>
+                            <div className='content'>
+                            {mocked_insights(this.props)}
+                            </div>
                         </div>
                     </div>
-                    <div className='content-block' id='user-insights'>
-                        <div className='content'>
-                        {mocked_insights(this.props)}
-                        </div>
-                    </div>
-                    <div className='content-block' id='user-insights'>
-                        <div className='content'>
-                        <UserInsights passusername={this.props.location.state.username} />
-                        </div>
-                    </div>
-                </div>
-                
-                </>
-            );
+                    </>
+                )
+            }
         } catch (error) {
             return <PageNotFound />
         }
-        
     }
 };
-
 export default Dashboard;

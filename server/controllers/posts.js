@@ -5,8 +5,6 @@ export const retrieveUserData = async (req, res) => {
     try {
         const uName = req.body.uName;
 
-        console.log(uName);
-
         /// Use with correct user/pass
         const retrievedData = await userInfos
                                         .findOne({username: uName});

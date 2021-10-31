@@ -14,7 +14,6 @@ class TestLogin extends React.Component {
         this.state = {
             username: '',
             password: '',
-            hash:'jfdisaojfewnfkdsajienweiak',
             redirect: null
         }
 
@@ -51,13 +50,20 @@ class TestLogin extends React.Component {
                     alert(res.data);
                 }
                 else {
-                    this.props.history.push({
+                    // Set token exp
+                    const tokenExp = Math.floor(Date.now() / 1000) + (60*60)
+                    
+                    // Set the user's auth state
+                    setTimeout(() =>
+                        this.props.history.push({
                         pathname:'/home',
                         state: {
-                            username:this.state.username,
-                            loggedIn: true
+                            username: this.state.username,
+                            loggedIn: true,
+                            token: res.data,
+                            tokenExp: tokenExp
                         }
-                    })
+                    }), 500);
                 }
             })
             .catch(function (error) {
