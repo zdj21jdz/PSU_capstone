@@ -33,22 +33,14 @@ import { Dashboard } from '../../components/dashboard';
 import { PageNotFound } from '../../Pages/NotFound';
 import App from '../../App';
 
+// Pen Testing Suite
+import randomPathGen from '../PenTestFuns';
+
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
 
 let pathMap = {};
-
-function randomPathGen(length) {
-    var result           = '/';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
-}
 
 describe('TC_S1 - Test Non-Auth user', ()=> {
     beforeAll(() => {
@@ -69,9 +61,9 @@ describe('TC_S1 - Test Non-Auth user', ()=> {
         expect(pathMap['/home']).toBe(Dashboard);
       })
 
-     // Test 10 random paths
+     // Test 10 random paths, with length of 6 characters
       for(var i = 0; i < 10; i++) {
-          let randomPath = randomPathGen(6);
+          let randomPath = randomPathGen();
           
           it('TC_S1.3 - PageNotFound shown for random pages', () => {
             expect(pathMap[randomPath]).toBe(PageNotFound);

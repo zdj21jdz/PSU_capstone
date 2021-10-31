@@ -1,24 +1,46 @@
 import axios from "axios";
 
-export function mock_login(username, password) {
+export function mock_login(username, password, attempt=1) {
     const postData = {
         submittedUsername: username,
         submittedPass: password
     }
 
-    axios.post('http://localhost:5000/logins', 
+    if (attempt == 3) {
+        axios.post('http://localhost:5000/logins', 
                 {postData}, {
                     headers: {
                       'Content-Type': 'application/json'
                     }
                   })
-        .then(res => {
-            console.log(res.data);
-            if(res.data==='Invalid Credentials!') {
-                // alert(res.data);
-            }
-            else {
-                console.log('Success')
-            }
-        });
+            .then(res => {
+                if(res.data==='Invalid Credentials!') {
+                    console.error();
+                }
+            })
+            .catch(function (error) {
+                // Bouncer for 429 - too many requests
+                alert("Too many bad attempts! Please wait a few minutes");
+            });
+        
+    }
+    else {
+        axios.post('http://localhost:5000/logins', 
+                {postData}, {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  })
+            .then(res => {
+                if(res.data==='Invalid Credentials!') {
+                    console.log(res.data)
+                }
+                else {
+                    // Set token exp
+                    const tokenExp = 1635701127 + (60*60)
+                    console.log;
+                }
+            });
+    }
+    
 };

@@ -14,7 +14,6 @@ class TestLogin extends React.Component {
         this.state = {
             username: '',
             password: '',
-            hash:'jfdisaojfewnfkdsajienweiak',
             redirect: null
         }
 
@@ -47,20 +46,29 @@ class TestLogin extends React.Component {
                         }
                       })
             .then(res => {
-                console.log(res.data);
                 if(res.data==='Invalid Credentials!') {
                     alert(res.data);
                 }
                 else {
-                    console.log('hit here')
-                    this.props.history.push({
+                    // Set token exp
+                    const tokenExp = Math.floor(Date.now() / 1000) + (60*60)
+                    
+                    // Set the user's auth state
+                    setTimeout(() =>
+                        this.props.history.push({
                         pathname:'/home',
                         state: {
-                            username:this.state.username,
-                            loggedIn: true
+                            username: this.state.username,
+                            loggedIn: true,
+                            token: res.data,
+                            tokenExp: tokenExp
                         }
-                    })
+                    }), 500);
                 }
+            })
+            .catch(function (error) {
+                // Bouncer for 429 - too many requests
+                alert("Too many bad attempts! Please wait a few minutes");
             });
         }
 

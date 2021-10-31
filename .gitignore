@@ -1,5 +1,6 @@
 # Ignore git embeded within server for Heroku Deployment
 server/.git
 
-# Ignore builds imported from client
-server/build/
+# Ignore all node modules
+*node_modules/
+server/node_modules/
