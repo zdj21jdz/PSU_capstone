@@ -33,7 +33,12 @@ export function mock_login(username, password, attempt=1) {
                   })
             .then(res => {
                 if(res.data==='Invalid Credentials!') {
-                    // alert(res.data)
+                    console.log(res.data)
+                }
+                else {
+                    // Set token exp
+                    const tokenExp = 1635701127 + (60*60)
+                    console.log;
                 }
             });
     }
