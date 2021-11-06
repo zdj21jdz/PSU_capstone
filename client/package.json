@@ -31,7 +31,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "API_URL='http://localhost:5000' react-scripts start",
+    "start-dev": "API_URL='http://localhost:5000' react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build && rm -rf ../server/build && mv build ../server/",
     "test": "jest",
     "eject": "react-scripts eject",
