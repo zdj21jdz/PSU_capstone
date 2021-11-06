@@ -16,6 +16,8 @@ export const validateUser = async (req, res) => {
                                                   pass: uPass});
 
         console.log('After checking database');
+        console.log(retrievedData);
+        console.log('See retrieved data above');
 
         if (!retrievedData) {
             res.status(200).send('Invalid Credentials!')
