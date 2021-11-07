@@ -9,6 +9,7 @@ import expressBouncer from 'express-bouncer';
 import postRoutes from'./routes/posts.js';
 import postLogins from './routes/logins.js'
 import postTests from './routes/tests.js';
+import verifyEmail from './routes/verifyEmail.js';
 
 const app = express();
 const __dirname = path.resolve();
@@ -29,13 +30,14 @@ bouncer.blocked = function (req, res, next, remaining)
 };
 
 // Middleware
-app.get('/', bouncer.block, function (req, res) {
+app.get('/', function (req, res) {
   bouncer.reset(req);
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.use('/posts', postRoutes);
 app.use('/logins', bouncer.block, postLogins);
 app.use('/tests', bouncer.block, postTests);
+app.use('/verifyEmail',verifyEmail);
 
 // Set login creds
 const CONNECTION_URL = process.env.CONNECTION_URL

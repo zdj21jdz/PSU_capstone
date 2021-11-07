@@ -1,19 +1,19 @@
 import React from "react";
-// import { Redirect } from "react-router-dom";
 import Button from '@mui/material/Button';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import axios from 'axios';
 
+// Custom CSS files
 import './TestLogin.css';
-import { Redirect } from "react-router";
 
-class TestLogin extends React.Component {
-
+// NewUser Page
+class NewUser extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             username: '',
             password: '',
+            email: '',
+            confirmPassword: '',
             redirect: null
         }
 
@@ -29,66 +29,56 @@ class TestLogin extends React.Component {
         this.setState({
             [target.name]: target.value
         });
-      }
+    }
 
     handleSubmit(e) {
         e.preventDefault();
 
-        const postData = {
-            submittedUsername: this.state.username,
-            submittedPass: this.state.password
-        }
+        if (this.state.password !== this.state.confirmPassword) {
+            alert("Passwords do not match!");
+        } else {
+            const postData = {
+                submittedUsername: this.state.username,
+                submittedPass: this.state.password,
+                submittedEmail: this.state.email
+            }
 
-        axios.post( '/logins', 
-                    {postData}, {
-                        headers: {
-                          'Content-Type': 'application/json'
-                        }
-                      })
-            .then(res => {
-                if(res.data==='Invalid Credentials!') {
+            // Submit email verification
+            axios.post('/verifyEmail',
+                        {postData}, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                .then(res => {
                     alert(res.data);
-                }
-                else {
-                    // Set token exp
-                    const tokenExp = Math.floor(Date.now() / 1000) + (60*60)
-                    
-                    // Set the user's auth state
-                    setTimeout(() =>
-                        this.props.history.push({
-                        pathname:'/home',
-                        state: {
-                            username: this.state.username,
-                            loggedIn: true,
-                            token: res.data,
-                            tokenExp: tokenExp
-                        }
-                    }), 500);
-                }
-            })
-            .catch(function (error) {
-                // Bouncer for 429 - too many requests
-                alert("Too many bad attempts! Please wait a few minutes");
-            });
+                })
+                .catch(function(error) {
+                    alert('Internal Server Error')
+                })
         }
+    }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
-        }
         return (
             <div className="submit-form">
-    
-                <div id="login-icon">
-                    <LockOutlinedIcon />
-                </div>
-                
                 <div id="banner">
-                    Sign in
+                    New User Sign Up
                 </div>
 
                 <div id="inputs">
                     <form>
+                        <label htmlFor="email">Email</label>
+                        <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        required
+                        value={this.email}
+                        onChange={this.handleInputChange}
+                        name="email"
+                        />
+
                         <label htmlFor="user">Username</label>
                         <input
                         type="text"
@@ -110,25 +100,35 @@ class TestLogin extends React.Component {
                         onChange={this.handleInputChange}
                         name="password"
                         />
+
+                        <label htmlFor="Confirmpassword">Confirm Password</label>
+                        <input
+                        type="Password"
+                        className="form-control"
+                        id="confPass"
+                        required
+                        value={this.confirmPassword}
+                        onChange={this.handleInputChange}
+                        name="confirmPassword"
+                        />
                         <Button variant="contained" 
                                 id="login-btn" 
                                 type="submit" 
                                 onClick={this.handleSubmit}>
-                            Login
+                            Sign Up
                         </Button>
                     </form>
                 </div>
-                
+
                 <div id="login-help">
                     <div id="Sign-up">
-                        <a href="/newuser">Don't have an Account? Sign Up</a>
+                        <a href="/">Back to Home Page</a>
                     </div>
                 </div>
-    
+
             </div>
         );
     }
-    
 }
 
-export default TestLogin;
+export default NewUser;
