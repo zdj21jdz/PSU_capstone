@@ -35,8 +35,8 @@ export const verifyEmail = async (req,res) => {
     await dev_databases.create({
       username: uName, 
       pass: uPass, 
-      isValidated: true
-      // verificationToken: verificationToken // to add after routing set up
+      isValidated: true,
+      verificationToken: verificationToken // to add after routing set up
     });
     
     // Build Email

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function mock_login(username, password, attempt=1) {
+export function mock_login(username, password, attempt=1, isValidated=true) {
     const postData = {
         submittedUsername: username,
         submittedPass: password
