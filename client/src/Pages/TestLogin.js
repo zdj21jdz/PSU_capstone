@@ -67,8 +67,12 @@ class TestLogin extends React.Component {
                 }
             })
             .catch(function (error) {
-                // Bouncer for 429 - too many requests
-                alert("Too many bad attempts! Please wait a few minutes");
+                if (error.response.status === 403) {
+                    alert('User not yet validated - Check your email!')
+                } else {
+                    // Bouncer for 429 - too many requests
+                    alert("Too many bad attempts! Please wait a few minutes");
+                }
             });
         }
 

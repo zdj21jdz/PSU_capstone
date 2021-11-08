@@ -16,12 +16,17 @@ export const validateUser = async (req, res) => {
                                                   pass: uPass});
 
         console.log('After checking database');
-        console.log(retrievedData);
+        console.log(retrievedData.isValidated);
         console.log('See retrieved data above');
 
         if (!retrievedData) {
             res.status(200).send('Invalid Credentials!')
-        } else {
+        } 
+        else if (!retrievedData.isValidated) {
+            console.log('User not validated')
+            res.sendStatus(403)
+        }
+        else {
             console.log('User Properly Authenticated');
 
             console.log('Setting JWT token..');
@@ -34,7 +39,8 @@ export const validateUser = async (req, res) => {
         
     } catch (error) {
         console.log('we_errored_here');
-        res.status(404).json({ message: error.message });
+        console.log(error.message)
+        res.status(200).send('Invalid Credentials!')
         
     }
 }

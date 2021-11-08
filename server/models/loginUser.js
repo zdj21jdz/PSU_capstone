@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const loginSchema = mongoose.Schema({
     username: String,
-    pass: String
+    pass: String,
+    isValidated: Boolean
 });
 
 const dev_databases = mongoose.model('dev_databases', loginSchema)

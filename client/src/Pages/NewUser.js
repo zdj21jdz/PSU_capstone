@@ -54,7 +54,13 @@ class NewUser extends React.Component {
                     alert(res.data);
                 })
                 .catch(function(error) {
-                    alert('Internal Server Error')
+                    if (error.response.status === 400) {
+                        alert('Invalid Email')
+                    } else {
+                        alert('Internal Server Error')
+                    }
+                    
+
                 })
         }
     }

@@ -32,6 +32,11 @@ class App extends React.Component {
                             component={NewUser}
                             type="guest"
                     />
+
+                    {/* Note - for User Verification we'll create
+                            a specific prefix that will route
+                            users to a confirmation page
+                    */}
     
                     <Route path="*" component={PageNotFound} />
                 </Switch>
