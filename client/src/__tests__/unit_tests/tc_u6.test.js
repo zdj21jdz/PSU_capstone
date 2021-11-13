@@ -1,45 +1,42 @@
-/* TC_U2 - Test Case - Unit test #2
+/* TC_U6 - Test Case - Unit test #6
     
 Description:
-        Username shown in navbar 
+        BuySell Page renders properly
 
 Parameters:
-        Valid username
+        Valid user session
 
 Pre-Condition:
-        User is logged into website 
+        User has already authenticated through page login
 
 Variables:
         username
 
 Post-Condition:
-        Username is shown on navbar 
+        Username is shown on navbar, components on page render properly
 
 Expected Results:
-        Once the user is logged in, they will see their user 
-            name next to the “logout” icon 
-            (ex – user Zach will have “Logout Zach”) 
+        The Buy/Sell page is personalized with user data
 
 */
 
 import React from 'react';
 import { configure, shallow } from 'enzyme';
-import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 
 // My Components
-import Dashboard from '../../components/dashboard';
+import BuySell from '../../components/BuySell';
 import ZNav from '../../components/Custom_Nav/z_nav';
 
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
 
-describe('TC_U2 - Test Non-Auth user', ()=> {
+describe('TC_U6 - Test Non-Auth user', ()=> {
     
-    it('Dashboard renders username in navbar', () => {
+    it('BuySell renders username in navbar', () => {
         // Set a authorized wrapper
-        const authed_wrapper = shallow(<Dashboard />);
+        const authed_wrapper = shallow(<BuySell />);
         authed_wrapper.setProps({location: {state: {username: 'test'}}});
 
         // Make sure navbar renders
