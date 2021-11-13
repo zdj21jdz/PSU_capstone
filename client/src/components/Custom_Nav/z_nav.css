@@ -1,3 +1,7 @@
+header {
+    max-height: 64px;
+}
+
 button#Navbar-Brand {
     color: white;
     padding-top: .3125rem;
@@ -9,12 +13,28 @@ button#Navbar-Brand {
     font-weight: normal;
 }
 
+/* div#sub-links.navbar-nav.me-auto {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+} */
+
 div#sub-links {
     color: white;
-    flex-direction: row;
+    max-height: 64px;
+    width: 700px;
     font-weight: normal;
     margin-left: 20px;
     padding-top: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+li.nav-item {
+    display: flex;
+    flex-direction: row;
+
 }
 
 button.link-buttons {
@@ -34,3 +54,5 @@ button#logout-button {
 a#logout-button.nav-link {
     color: white;
 }
+
+/* navbar-nav me-auto" id="sub-links */

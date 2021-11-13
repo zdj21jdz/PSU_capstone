@@ -104,7 +104,8 @@ class Dashboard extends React.Component {
                 return (
                     <>
                     <div>
-                        <ZNav username={this.props.location.state.username}/>
+                        <ZNav username={this.props.location.state.username}
+                              tokenExp={this.props.location.state.tokenExp}/>
                     </div>
             
                     <div id='greeting'>
