@@ -34,20 +34,6 @@ const ZNav = props => {
             <div className="navbar-nav me-auto" id="sub-links">
                 <li className="nav-item">
                     <Link to={{
-                            pathname: "/buysell",
-                            state: {
-                                username: props.username,
-                                tokenExp: props.tokenExp
-                            }
-                        }} 
-                            className="nav-link">
-                        <Button className="link-buttons">
-                            Buy / Sell
-                        </Button>
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link to={{
                             pathname: "/home",
                             state: {
                                 username: props.username,
@@ -57,6 +43,20 @@ const ZNav = props => {
                             className="nav-link">
                         <Button className="link-buttons">
                             Insights (home)
+                        </Button>
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to={{
+                            pathname: "/buysell",
+                            state: {
+                                username: props.username,
+                                tokenExp: props.tokenExp
+                            }
+                        }} 
+                            className="nav-link">
+                        <Button className="link-buttons">
+                            Buy / Sell
                         </Button>
                     </Link>
                 </li>
