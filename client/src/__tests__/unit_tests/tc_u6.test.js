@@ -30,14 +30,14 @@ import ZNav from '../../components/Custom_Nav/z_nav';
 import PageNotFound from '../../Pages/NotFound';
 
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import SessionExpired from '../../Pages/SessionExpired';
 
 // Set props to be passed to BuySell Component
 const buySellProps = {
         location: {
-          state: { username: 'test', tokenExp: 1637515252}
+          state: { username: 'test', tokenExp: 9999999999}
         }
-    }
-
+}
 configure({ adapter: new Adapter() });
 
 describe('TC_U6 - Test Non-Auth user', ()=> {
