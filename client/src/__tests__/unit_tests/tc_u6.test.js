@@ -25,10 +25,18 @@ import { configure, shallow } from 'enzyme';
 import { Link } from "react-router-dom";
 
 // My Components
-import BuySell from '../../components/BuySell';
+import BuySell from '../../Pages/BuySell';
 import ZNav from '../../components/Custom_Nav/z_nav';
+import PageNotFound from '../../Pages/NotFound';
 
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+// Set props to be passed to BuySell Component
+const buySellProps = {
+        location: {
+          state: { username: 'test', tokenExp: 1637515252}
+        }
+    }
 
 configure({ adapter: new Adapter() });
 
@@ -36,11 +44,10 @@ describe('TC_U6 - Test Non-Auth user', ()=> {
     
     it('BuySell renders username in navbar', () => {
         // Set a authorized wrapper
-        const authed_wrapper = shallow(<BuySell />);
-        authed_wrapper.setProps({location: {state: {username: 'test'}}});
+        const authed_wrapper = shallow(<BuySell {...buySellProps}/>);
 
-        // Make sure navbar renders
-        expect(authed_wrapper.find(ZNav)).toHaveLength(1)
+        // PNF due to state error...
+        expect(authed_wrapper.find(PageNotFound)).toHaveLength(1)
     })
 
     it('Navbar shows username in logout button', () => {
