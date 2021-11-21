@@ -8,7 +8,7 @@ import TestLogin from "./Pages/TestLogin";
 import PageNotFound from "./Pages/NotFound";
 import Dashboard from "./components/dashboard";
 import NewUser from "./Pages/NewUser";
-import BuySell from "./components/BuySell";
+import BuySell from "./Pages/BuySell";
 
 // TODO - add logic to route to login page first, then dashboard
 //<Dashboard />
