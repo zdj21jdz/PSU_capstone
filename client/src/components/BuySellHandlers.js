@@ -6,7 +6,6 @@ export function changeRadio (e) {
 
 export function handleInputChange(e) {
     e.preventDefault();
-    console.log(e);
     
     const target = e.target;
 
@@ -28,40 +27,20 @@ export function handleBuy(e) {
         alert('Please search for a symbol')
     }
     else {
-        // API Call to check symbol
-        if(false) {
-            // Code here
-            const postData = {
-                sym: sym
+        
+        let url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + sym + '&apikey=MWYCIJ7WHBXF94C0'
+            
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let buyPrice = data['Global Quote']['05. price'];
+
+            if(buyPrice === null || buyPrice === undefined) {
+                alert('Symbol not found!')
+            } else {
+                this.setState({ buyPrice: buyPrice })
             }
-
-            axios.post( '/checkstock', 
-                    {postData}, {
-                        headers: {
-                        'Content-Type': 'application/json'
-                        }
-                    })
-            .then(res => {
-                if(res.data==='Invalid Credentials!') {
-                    alert(res.data);
-                }
-                else {
-                    // TODO - Suply data to output
-
-                }
-            })
-            .catch(function (error) {
-                if (error.response.status === 403) {
-                    alert('User not yet validated - Check your email!')
-                } else {
-                    // Bouncer for 429 - too many requests
-                    alert("An error occured");
-                }
-            });
-        }
-        else {
-            console.log('Backend in progress')
-        }
+        });
     }
 }
 

@@ -14,7 +14,8 @@ class BuySell extends React.Component {
         super(props);
         this.state = {
             jdata: null,
-            radio: null
+            radio: null,
+            buyPrice: null
         };
 
         this.handleSubmit = zhandle.handleSubmit.bind(this);
@@ -94,6 +95,7 @@ class BuySell extends React.Component {
                                     </Button>
                                 </form>
                             </div>
+                            {this.state.buyPrice}
                         </div>
                     </div>
 
