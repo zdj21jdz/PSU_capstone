@@ -38,7 +38,8 @@ export function handleBuy(e) {
             if(buyPrice === null || buyPrice === undefined) {
                 alert('Symbol not found!')
             } else {
-                this.setState({ buyPrice: buyPrice })
+                this.setState({ buyPrice: buyPrice,
+                                buySym:   sym })
             }
         });
     }

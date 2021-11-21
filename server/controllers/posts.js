@@ -24,3 +24,36 @@ export const retrieveUserData = async (req, res) => {
         
     }
 }
+
+export const updatePortfolio = async (req, res) => {
+    try {
+        const uName = req.body.postData.uName;
+        const sym = req.body.postData.submittedSymbol;
+        const price = req.body.postData.submittedPrice;
+
+        // Update Portfolio
+        const updatePort = await userInfos
+                                .bulkWrite({
+                                    updateOne: {
+                                      filter: { username: uName,
+                                        portfolio: {stocks: sym} },
+                                      update: {
+                                        $set: {
+                                          portfolio: {
+                                              stocks: {
+                                                  sym: {
+                                                      'quantity': 1,
+                                                      'current_price': price
+                                                  }
+                                              }
+                                          }
+                                        }
+                                      }
+                                    }
+                                });
+
+    } catch (error) {
+        console.log('internal error - Portfolio Update')
+        res.status(404).json({ message: error.message });
+    }
+}

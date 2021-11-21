@@ -5,6 +5,7 @@ import SessionExpired from "./SessionExpired";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import * as zhandle from '../components/BuySellHandlers';
+import BuyConfirmation from '../components/BuyConfirmation';
 
 import './buysell.css';
 
@@ -15,7 +16,8 @@ class BuySell extends React.Component {
         this.state = {
             jdata: null,
             radio: null,
-            buyPrice: null
+            buyPrice: null,
+            buySym: null
         };
 
         this.handleSubmit = zhandle.handleSubmit.bind(this);
@@ -45,8 +47,11 @@ class BuySell extends React.Component {
             this.setState({
                 isLoaded: true,
                 jdata: res.data
+                })
             })
-        })  
+        .catch(function (error) {
+            console.log(error)
+        })
     }
 
     render() {
@@ -95,7 +100,10 @@ class BuySell extends React.Component {
                                     </Button>
                                 </form>
                             </div>
-                            {this.state.buyPrice}
+                            <BuyConfirmation 
+                                buyPrice={this.state.buyPrice}
+                                buySym = {this.state.buySym}
+                                passusername = {this.state.jdata.username} />
                         </div>
                     </div>
 
