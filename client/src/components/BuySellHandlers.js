@@ -48,9 +48,10 @@ export function handleBuy(e) {
 export function handleSell(e) {
     e.preventDefault();
 
-    // Set sell stock
+    // Retrieve sell stock payload data
     const stockName = this.state.radio;
     const sellQuantity = this.state.sellQuantity;
+    const uName = this.state.jdata.username
 
     if(stockName === null || sellQuantity === undefined || sellQuantity < 1) {
         alert('Please select a stock and amount to sell!')
@@ -61,10 +62,33 @@ export function handleSell(e) {
 
         if(sellQuantity <= maxQuantity) {
             console.log('Success!')
+            console.log(stockName, sellQuantity)
+            // Create Payload
+            const postData = {
+                uName: uName,
+                submittedSymbol: stockName,
+                submittedQuant: sellQuantity,
+                maxQuantity: maxQuantity,
+                updateType: 'Sell'
+            }
+
+            // Send post request
+            axios.post('/posts/updatePortfolio',
+                    {postData}, {
+                        headers: {
+                        'Content-Type': 'application/json'
+                        }
+                    })
+                .then(res => {    
+                    alert('Sold ' + sellQuantity+ ' share(s) of ' + stockName);
+                })  
+                .catch(function (error) {
+                    alert(error)
+                })
         }
         else {
-            alert("You only own " + maxQuantity.toString() + " shares of " + stockName
-            + ". You can't sell " + sellQuantity.toString() + " shares.")
+            alert("You only own " + maxQuantity + " shares of " + stockName
+            + ". You can't sell " + sellQuantity + " shares.")
         }
     }
 }

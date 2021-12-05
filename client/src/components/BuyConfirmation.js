@@ -23,7 +23,8 @@ function handleStockBuy(e) {
             uName: uName,
             submittedSymbol: sym,
             submittedQuant: amount,
-            submittedPrice: price
+            submittedPrice: price,
+            updateType: 'Buy'
         }
     
         // Send purchase request
