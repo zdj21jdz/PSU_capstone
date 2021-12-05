@@ -150,7 +150,7 @@ class BuySell extends React.Component {
                     </div>
 
                     <div className='content-block'>  
-                        {/* Sell Stocks */}
+                        {/* Portfolio */}
                         <div className='content'>
                             <h2>Current Portfolio</h2>
                                 <div>
