@@ -103,7 +103,7 @@ class BuySell extends React.Component {
                             <BuyConfirmation 
                                 buyPrice={this.state.buyPrice}
                                 buySym = {this.state.buySym}
-                                passusername = {this.state.jdata.username} />
+                                passusername = {this.props.location.state.username} />
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@ class BuySell extends React.Component {
                             <h1>Sell Stocks</h1>
                             <div id="inputs">
                                 <form>
-                                    {Object.keys(jdata.portfolio.stocks).map((stock) => {
+                                    {jdata.portfolio.stocks !== undefined && Object.keys(jdata.portfolio.stocks).map((stock) => {
                                         return (
                                             <>
                                             <input type="radio" 
@@ -154,7 +154,7 @@ class BuySell extends React.Component {
                         <div className='content'>
                             <h2>Current Portfolio</h2>
                                 <div>
-                                    {Object.keys(jdata.portfolio.stocks).map((stock) => {
+                                    {jdata.portfolio.stocks !== undefined && Object.keys(jdata.portfolio.stocks).map((stock) => {
                                         var stockPrice = jdata.portfolio.stocks[stock].current_price;
                                         var stockQuant = jdata.portfolio.stocks[stock].quantity;
                                         var totalValue =  stockPrice * stockQuant;
@@ -168,6 +168,7 @@ class BuySell extends React.Component {
                                             </ul>
                                         )
                                     })}
+                                    {jdata.portfolio.stocks === undefined ? (<h4>You have no stocks!</h4>) : (<p>All stocks loaded</p>)}
                                 </div>
                         </div>
                     </div>

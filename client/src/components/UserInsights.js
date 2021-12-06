@@ -36,7 +36,11 @@ class UserInsights extends React.Component {
         
         if (!isLoaded) {
             return <div>Loading...</div>;
-        } else {
+        } 
+        else if (jdata.portfolio.stocks === null || jdata.portfolio.stocks === undefined) {
+            return <div>You don't have any stocks yet!</div>
+        }
+        else {
             return (
             <div>
                 {Object.keys(jdata.portfolio.stocks).map((stock) => {

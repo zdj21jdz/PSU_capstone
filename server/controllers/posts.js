@@ -10,6 +10,7 @@ export const retrieveUserData = async (req, res) => {
         const retrievedData = await userInfos
                                         .findOne({username: uName});
 
+        console.log(retrievedData)
         if (!retrievedData) {
             console.log("Can't find user");
             res.status(409).json({ message: error.message });
