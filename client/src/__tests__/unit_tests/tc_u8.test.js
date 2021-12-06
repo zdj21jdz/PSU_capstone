@@ -1,4 +1,4 @@
-/* TC_U7 - Test Case - Unit test #7
+/* TC_U8 - Test Case - Unit test #8
     
 Description:
         Proper Logic for BUY Side

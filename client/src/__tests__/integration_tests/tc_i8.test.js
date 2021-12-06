@@ -1,28 +1,24 @@
-/* TC_S8 - Test Case - System test #8
+/* TC_I8 - Test Case - Integration test #8
     
 Description:
-    Buy Side properly adds new stock to portfolio
+        Sell Stock creates proper API Call
 
 Parameters:
-    - User Portfolio
-    - Buy Stock
-    - Stock Price
+    - API call
 
 Pre-Condition:
-    User has already had stock checked and is ready to purchase
+    - User is authenticated, on Buy/Sell page
 
 Variables:
-    - stock price
-    - stock symbol
+    - Symbol
 
 Post-Condition:
-    User's portfolio is updated upon purchase of stock
+    - Proper API call made
 
 Expected Results:
-    Once the buy side has validated all checks to ensure stock exists,
-        the user can then purchase the stock and add it to the portfolio
+    - Ensures that the API call is correct
 */
-import { configure, shallow } from 'enzyme';
+import { configure } from 'enzyme';
 
 // My Components
 import { mock_portfolio_update } from '../../mocks/mock_portfolio_update';
@@ -35,7 +31,7 @@ configure({ adapter: new Adapter() });
 import axios from 'axios';
 jest.mock("axios");
 
-describe('TC_S8 - Mock stock purchase', ()=> {
+describe('TC_I8 - Sell API Call testing', ()=> {
     // Load fake user Data
     const fakeData = {
         sym: 'MSFT',
@@ -50,7 +46,7 @@ describe('TC_S8 - Mock stock purchase', ()=> {
     // Set expected return message
     const expectedMsg = 'Update Successful!';
 
-    it("It updates the User's portfolio", () => {
+    it("Proper API call made", () => {
         // Set up mocked response
         axios.post.mockResolvedValue({ data: 'Update Successful!' });
 
