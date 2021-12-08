@@ -1,6 +1,7 @@
 /// Creating handlers for routes
 import { parse } from "dotenv";
 import userInfos from "../models/userInfos.js";
+import stockInfo from '../models/stockInfo.js';
 
 export const retrieveUserData = async (req, res) => {
     try {
@@ -17,6 +18,7 @@ export const retrieveUserData = async (req, res) => {
         } 
         else {
             console.log('User Found - sending data');
+            console.log(retrievedData)
             res.status(200).send(retrievedData);
         }
         
@@ -109,5 +111,57 @@ export const updatePortfolio = async (req, res) => {
         console.log('Server side error - Portfolio Update')
         console.log(error);
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const userInsights = async (req, res) => {
+    try {
+        const uName = req.body.uName;
+        
+        /// Use with correct user/pass
+        const retrievedData = await userInfos
+                                        .findOne({username: uName});
+
+        if (!retrievedData) {
+            console.log("Can't find user");
+            res.status(409).json({ message: error.message });
+        } 
+        else {
+            console.log('User Found - Determining Insights');
+
+            // Parse out symbols in array
+            const symbols = Object.keys(retrievedData.portfolio.stocks);
+
+            const industries = await stockInfo.aggregate([
+                {$match: {Symbol: { $in: symbols } }},
+                {$unwind: {path: '$Industry', preserveNullAndEmptyArrays: true}},
+                {$group: {_id: null, uniqueIndustries: {$addToSet: '$Industry'}}}
+                ]);
+            
+            // Grab the unique industries, prep blank dict
+            const uniqueIndus = industries[0]['uniqueIndustries']
+            var dataInsight = {'insights':{}};
+
+            for(const indus of uniqueIndus) {
+                // And finally, pull back some stocks in related industries
+                const insights = await stockInfo.find(
+                    {$and: [ { Industry: {$in: indus}}, {Symbol: {$nin: symbols}} ] }
+                )
+                
+                dataInsight['insights'][indus]=[]
+                dataInsight['insights'][indus].push(insights[0]['Symbol'],
+                                        insights[1]['Symbol'],
+                                        insights[2]['Symbol'])
+
+            }
+            // Send insights
+            console.log(dataInsight)
+            res.status(200).send(dataInsight);
+        }
+        
+    } catch (error) {
+        console.log('internal error');
+        res.status(404).json({ message: error.message });
+        
     }
 }
