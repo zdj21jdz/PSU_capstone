@@ -30,7 +30,7 @@ bouncer.blocked = function (req, res, next, remaining)
 };
 
 // Middleware
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   bouncer.reset(req);
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

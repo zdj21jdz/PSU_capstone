@@ -8,6 +8,7 @@ import TestLogin from "./Pages/TestLogin";
 import PageNotFound from "./Pages/NotFound";
 import Dashboard from "./components/dashboard";
 import NewUser from "./Pages/NewUser";
+import BuySell from "./Pages/BuySell";
 
 // TODO - add logic to route to login page first, then dashboard
 //<Dashboard />
@@ -25,6 +26,11 @@ class App extends React.Component {
     
                     <Route exact path="/home"
                             component={Dashboard}
+                            type="private"
+                    />
+
+                    <Route exact path="/buysell"
+                            component={BuySell}
                             type="private"
                     />
 

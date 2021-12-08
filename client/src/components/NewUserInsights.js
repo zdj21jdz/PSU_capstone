@@ -3,7 +3,7 @@ import React from "react";
 import './dashboard.css';
 import axios from "axios";
 
-class UserInsights extends React.Component {
+class NewUserInsights extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class UserInsights extends React.Component {
 
         let userName = this.props.passusername;
     
-        axios.post('/posts',
+        axios.post('/posts/userInsight',
                 {uName: userName}, {
                     headers: {
                     'Content-Type': 'application/json'
@@ -37,26 +37,28 @@ class UserInsights extends React.Component {
         if (!isLoaded) {
             return <div>Loading...</div>;
         } 
-        else if (jdata.portfolio.stocks === null || jdata.portfolio.stocks === undefined) {
+        else if (jdata === null || jdata === undefined) {
             return <div>You don't have any stocks yet!</div>
         }
         else {
+            // Prep insights
+            var insightKeys = Object.keys(jdata.insights)
+            console.log(insightKeys)
+
             return (
             <div>
-                {Object.keys(jdata.portfolio.stocks).map((stock) => {
-                    var stockPrice = jdata.portfolio.stocks[stock].current_price;
-                    var stockQuant = jdata.portfolio.stocks[stock].quantity;
-    
-                    var totalValue =  stockPrice * stockQuant;
+                {/* {jdata.insights.Software} */}
+                <h3>Based on the industries in your portfolio,</h3>
+                <h3>you may also like these stocks:</h3>
+                {Object.keys(jdata.insights).map(function(keyName) {
                     return (
-                        <ul key={stock} id='stock_listings'>
-                            <h5>{stock}: Current value held: ${totalValue}</h5>
-                            <li>
-                                Current Price: ${jdata.portfolio.stocks[stock].current_price}
-                            </li>
-                            <li>
-                                Total Shares: {jdata.portfolio.stocks[stock].quantity}
-                            </li>
+                        <ul key={keyName} style={{'list-style-position': "inside"}}>
+                            <li>{keyName}</li>
+                                <ul>
+                                <li>{jdata.insights[keyName][0]}</li>
+                                <li>{jdata.insights[keyName][1]}</li>
+                                <li>{jdata.insights[keyName][2]}</li>
+                                </ul>
                         </ul>
                     )
                 })}
@@ -67,4 +69,4 @@ class UserInsights extends React.Component {
     }
 }
 
-export default UserInsights;
+export default NewUserInsights;

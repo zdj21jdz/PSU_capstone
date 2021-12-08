@@ -8,11 +8,6 @@ import Button from '@mui/material/Button';
 import { IconButton } from '@mui/material';
 import { Link } from "react-router-dom";
 
-// history.push({
-//     pathname: '/home',
-//     state: {
-//         userName: username,
-//     }
 
 // Main Navbar used throughout the website
 const ZNav = props => {
@@ -38,16 +33,34 @@ const ZNav = props => {
 
             <div className="navbar-nav me-auto" id="sub-links">
                 <li className="nav-item">
-                    {/* <Link to={"/insights"} className="nav-link">
-                    Insights
-                    </Link> */}
-                    <Button className="link-buttons">
-                        Insights
-                    </Button>
+                    <Link to={{
+                            pathname: "/home",
+                            state: {
+                                username: props.username,
+                                tokenExp: props.tokenExp
+                            }
+                        }} 
+                            className="nav-link">
+                        <Button className="link-buttons">
+                            Insights (home)
+                        </Button>
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to={{
+                            pathname: "/buysell",
+                            state: {
+                                username: props.username,
+                                tokenExp: props.tokenExp
+                            }
+                        }} 
+                            className="nav-link">
+                        <Button className="link-buttons">
+                            Buy / Sell
+                        </Button>
+                    </Link>
                 </li>
             </div>
-
-            <div className="container mt-3"></div> {/* Divider */}
 
             <Button color="inherit">
                     <Link to={"/"} className="nav-link" id="logout-button">

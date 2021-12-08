@@ -52,7 +52,7 @@ describe('TC_U2 - Test Non-Auth user', ()=> {
         nav_wrapper.setProps({username: 'test'});
 
         // Check for logout link
-        expect(nav_wrapper.find(Link)).toHaveLength(1)
+        expect(nav_wrapper.find(Link)).toHaveLength(3)
 
         // Check text
         expect(nav_wrapper.text().includes('Logout - Test'))

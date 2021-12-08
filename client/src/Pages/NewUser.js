@@ -54,7 +54,12 @@ class NewUser extends React.Component {
                     alert(res.data);
                 })
                 .catch(function(error) {
-                    if (error.response.status === 400) {
+                    console.log(error)
+
+                    if (error.response.status === 401) {
+                        alert('Please choose a different Username')
+                    } 
+                    else if (error.response.status === 400) {
                         alert('Invalid Email')
                     } else {
                         alert('Internal Server Error')

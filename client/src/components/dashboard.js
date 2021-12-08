@@ -6,82 +6,7 @@ import SessionExpired from "../Pages/SessionExpired";
 
 import './dashboard.css';
 import UserInsights from './UserInsights';
-
-function mocked_insights(props) {
-    if (props.location.state.username ==='test') {
-        return (
-            <div>
-                <ul id='stock_listings'>
-                    <h4><b>APPL insights</b></h4>
-                    <p>
-                        Apple is a tech firm based out of California, and has....
-                    </p>
-                    <p>bla bla bla</p>
-                    <p>bla bla bla</p>
-                    <p>bla bla bla</p>
-
-                    <h5><b>Stocks like APPL</b></h5>
-                    <p>
-                        MSFT, NVDA, TSLA, FB, LYFT, UBER..
-                    </p>
-                </ul>
-                <ul id='stock_listings'>
-                    <h4><b>MSFT insights</b></h4>
-                    <p>
-                        Microsoft is a tech firm based out of Washington state, and has...
-                    </p>
-                    <p>bla bla bla</p>
-                    <p>bla bla bla</p>
-                    <p>bla bla bla</p>
-
-                    <h5><b>Stocks like MSFT</b></h5>
-                    <p>
-                        AAPL, NVDA, TSLA, FB, LYFT, UBER..
-                    </p>
-                </ul>
-            </div>
-        )
-    }
-    if (props.location.state.username ==='test_xyz') {
-        return (
-            <div>
-                <ul id='stock_listings'>
-                    <h4><b>BOIL insights</b></h4>
-                    <p>
-                        BOIL is a leveraged ETF for natural gas, and has..
-                    </p>
-                    <p>BOIL has notable changes due to seasonality!</p>
-                    <p>bla bla bla</p>
-
-                    <h5><b>Stocks like BOIL</b></h5>
-                    <p>
-                        KOLD, BP, RDS.A...
-                    </p>
-                </ul>
-                <ul id='stock_listings'>
-                    <h4><b>KOLD insights</b></h4>
-                    <p>
-                        KOLD is a leveraged Short ETF for natural gas, and has.. 
-                    </p>
-                    <p>KOLD has notable changes due to seasonality!</p>
-                    <p>bla bla bla</p>
-
-                    <h5><b>Stocks like KOLD</b></h5>
-                    <p>
-                        BOIL, BP, RDS.A...
-                    </p>
-                </ul>
-            </div>
-        )
-    }
-    else {
-        return (
-            <div>
-                Error Loading Data!
-            </div>
-        )
-    }
-}
+import NewUserInsights from './NewUserInsights';
 
 class Dashboard extends React.Component {
 
@@ -104,7 +29,8 @@ class Dashboard extends React.Component {
                 return (
                     <>
                     <div>
-                        <ZNav username={this.props.location.state.username}/>
+                        <ZNav username={this.props.location.state.username}
+                              tokenExp={this.props.location.state.tokenExp}/>
                     </div>
             
                     <div id='greeting'>
@@ -120,7 +46,7 @@ class Dashboard extends React.Component {
                         </div>
                         <div className='content-block' id='user-insights'>
                             <div className='content'>
-                            {mocked_insights(this.props)}
+                                <NewUserInsights passusername={this.props.location.state.username} />
                             </div>
                         </div>
                     </div>
